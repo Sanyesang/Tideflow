@@ -1,0 +1,45 @@
+/* Comfortable desktop typography; no browser zoom required. */
+.app-shell {font-size:16px;line-height:1.65}
+.app-shell span{font-size:14px;line-height:1.65}
+.app-shell :is(p,small,label,th,td,time,kbd,em,.text-button,.field-label,.configuration-row,.config-foot,.risk-foot,.risk-readouts,.history-file-status,.history-intro,.history-assumptions,.strategy-description,.status-key,.status-value,.panel-kicker,.metric-foot,.chart-legend,.chart-xlabels,.chart-ylabels,.market-foot,.notice-footer,.workspace-footer,.coin-copy,.coin-price,.coin-change,.risk-score-row,.slider-scale,.execution-foot,.live-label,.stage strong,.stage small) {font-size:14px!important;line-height:1.65}
+.app-shell :is(button,input:not([type=range]),select) {font-size:15px;min-height:40px}
+.app-shell input[type=range]{min-height:0;height:6px}
+.app-shell .risk-readouts strong{font-size:15px}
+.app-shell .page-heading h1:focus{outline:none}
+.app-shell .nav-item{font-size:16px;height:50px}
+.app-shell .nav-item span:not(.nav-icon){font-size:16px}
+.app-shell .panel-heading h2,.app-shell .route-intro h2{font-size:22px}
+.app-shell .page-heading h1{font-size:34px}
+.app-shell .metric-value{font-size:30px}
+.app-shell .metric-value span{font-size:30px}.app-shell .metric-value small{font-size:14px}
+.app-shell .panel{padding:22px}
+.app-shell .select-control{height:44px}
+.app-shell .configuration-row{min-height:64px}
+.app-shell .strategy-panel,.app-shell .execution-panel{min-height:0}
+.app-shell .status-strip{height:auto;min-height:82px;flex-wrap:wrap;padding:16px;gap:16px}
+.app-shell .status-main{min-width:210px}
+.app-shell .status-main strong{font-size:16px}.app-shell .status-main span{font-size:14px}
+.app-shell .dashboard-grid{grid-template-columns:minmax(0,1fr)}
+.app-shell .column-side{display:grid;grid-template-columns:1fr 1fr}
+.app-shell .market-panel{grid-column:1/-1}
+.app-shell .coin-copy strong,.app-shell .coin-copy small{font-size:14px}
+.app-shell .stage{min-height:80px}
+.app-shell .metric-label{font-size:15px}
+.app-shell .trade-table :is(th,td){font-size:14px!important;padding:14px 12px}
+.app-shell .chart-wrap{height:230px}.app-shell .chart-legend{flex-wrap:wrap}
+.workspace-page[hidden]{display:none!important}
+.route-intro{margin:0 0 24px}.route-intro h2{display:none}.route-intro p{max-width:1000px;color:#acb9b9}
+.route-content{display:grid;gap:22px}.route-content>.panel{width:100%}
+.strategy-catalog{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+.strategy-choice{border:1px solid #35474d;background:#172329;border-radius:12px;text-align:left;padding:22px;cursor:pointer}
+.strategy-choice[aria-pressed=true]{border-color:#c8ec70;background:linear-gradient(145deg,#263728,#172329)}
+.strategy-choice h3{font-size:21px;margin:10px 0}.strategy-choice p{color:#acb9b9}.strategy-choice>span{color:#c8ec70;display:block;margin-top:16px}
+.route-actions,.journal-toolbar{display:flex;align-items:center;gap:16px;flex-wrap:wrap}.journal-toolbar label{display:grid;gap:8px;min-width:190px}
+.route-content select{border:1px solid #3e5158;border-radius:7px;background:#142127;color:#e1e8df;padding:8px 12px}
+.route-content .strategy-panel{display:block}.route-content .risk-panel{max-width:760px}
+.route-risk-details dl{display:grid;grid-template-columns:1fr 1fr;gap:12px}.route-risk-details dt{color:#abbaba}.route-risk-details dd{margin:0;color:#d8ecb2}
+.route-table{border-collapse:collapse;width:100%}.route-table th,.route-table td{padding:16px;text-align:left;border-bottom:1px solid #304047;white-space:nowrap}.route-table th{color:#9cacab}
+.route-content h3{font-size:20px}.route-content p{color:#b0bfbd}.route-content #route-events{padding-left:24px;overflow-wrap:anywhere}.route-content #route-events time{margin-right:15px;color:#c8ec70}
+.notice-entry{margin-bottom:18px}.notice-entry h3{margin:12px 0}.notice-entry small{color:#b4c88d}.notice-entry p{max-width:950px}
+.app-shell .heading-tools{flex-shrink:0}.app-shell .page-heading{gap:20px}
+@media(max-width:1100px){.strategy-catalog{grid-template-columns:1fr}.app-shell .page-heading{flex-wrap:wrap}.app-shell .metric-grid{grid-template-columns:1fr 1fr}.app-shell .column-side{grid-template-columns:1fr}.app-shell .market-panel{grid-column:auto}}

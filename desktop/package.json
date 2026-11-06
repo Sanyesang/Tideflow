@@ -1,0 +1,43 @@
+{
+  "name": "tideflow-desktop",
+  "productName": "潮序 Tideflow",
+  "version": "0.4.0",
+  "description": "潮序桌面量化研究工作台：历史回测、本地纸面交易与 OKX 模拟盘现货实验",
+  "author": "Tideflow",
+  "private": true,
+  "type": "module",
+  "main": "main.cjs",
+  "scripts": {
+    "start": "electron .",
+    "icons": "node build-icons.cjs",
+    "package": "electron-builder --win nsis --x64 --publish never",
+    "test": "node --test runtime-bridge.test.cjs okx-demo-bridge.test.cjs"
+  },
+  "devDependencies": {
+    "electron": "45.0.0",
+    "electron-builder": "26.15.3",
+    "sharp": "0.35.5"
+  },
+  "build": {
+    "appId": "com.tideflow.workbench",
+    "productName": "潮序 Tideflow",
+    "copyright": "Copyright © 2026 Tideflow",
+    "directories": { "output": "../release/windows-0.4.0", "buildResources": "assets" },
+    "files": [
+      "main.cjs", "preload.cjs", "runtime-bridge.cjs", "okx-demo-bridge.cjs", "assets/tideflow.ico", "assets/tideflow.png",
+      { "from": "..", "to": "bundle", "filter": ["dist/**/*.js", "!dist/src/**", "!dist/test/**", "scripts/workbench-auth.mjs", "scripts/serve-workbench.mjs", "workbench/**/*", "examples/**/*.csv"] }
+    ],
+    "asar": true,
+    "win": { "target": "nsis", "icon": "assets/tideflow.ico", "executableName": "Tideflow", "requestedExecutionLevel": "asInvoker" },
+    "nsis": {
+      "oneClick": true,
+      "perMachine": false,
+      "createDesktopShortcut": "always",
+      "createStartMenuShortcut": true,
+      "shortcutName": "潮序 Tideflow",
+      "deleteAppDataOnUninstall": false,
+      "artifactName": "Tideflow-Setup-${version}-${arch}.${ext}",
+      "runAfterFinish": true
+    }
+  }
+}

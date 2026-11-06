@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#10171c" />
+    <meta name="description" content="潮序 Tideflow 邀请制工作台访问入口。" />
+    <title>潮序 Tideflow · 邀请访问</title>
+    <link rel="icon" type="image/svg+xml" href="/assets/tideflow-mark.svg" />
+    <link rel="stylesheet" href="/styles.css" />
+    <link rel="stylesheet" href="/auth.css" />
+    <script defer src="/login.js"></script>
+  </head>
+  <body>
+    <main class="invite-gate" aria-label="潮序邀请访问">
+      <div class="gate-backdrop" aria-hidden="true"><span class="gate-orbit orbit-one"></span><span class="gate-orbit orbit-two"></span><span class="gate-wave"></span></div>
+      <section class="gate-panel" aria-labelledby="gate-title">
+        <div class="gate-logo"><img src="/assets/tideflow-mark.svg" alt="" /><span><strong>潮序</strong><small>TIDEFLOW QUANT</small></span></div>
+        <div class="gate-kicker">PRIVATE ACCESS / INVITE ONLY</div>
+        <h1 id="gate-title">让每一次决策，<br /><em>都有迹可循。</em></h1>
+        <p class="gate-copy">策略工作台 · 受邀访问</p>
+
+        <form id="invite-form" autocomplete="off">
+          <label class="invite-label" for="invite-code">访问邀请码</label>
+          <div class="invite-field"><span aria-hidden="true">✦</span><input id="invite-code" name="inviteCode" type="password" inputmode="text" maxlength="256" placeholder="请输入受邀访问码" autocomplete="one-time-code" spellcheck="false" required /><button type="submit" id="invite-submit" aria-label="验证并进入工作台">→</button></div>
+          <p class="gate-feedback" id="gate-feedback" role="status" aria-live="polite">仅限受邀用户进入；没有公开注册入口。</p>
+        </form>
+
+        <div class="gate-divider"><span></span><small>NO OPEN REGISTRATION</small><span></span></div>
+        <div class="gate-note"><span aria-hidden="true">◈</span><p><strong>私密访问 · 本机数据</strong><br />访问码由发放方提供。模拟记录保存在当前浏览器，不会上传。</p></div>
+        <div class="gate-disclaimer">本地纸面模拟，不连接账户、不提交订单。交易有风险，可能损失全部本金。</div>
+      </section>
+      <div class="gate-wordmark">TIDEFLOW <span>·</span> A STRATEGY WORKBENCH</div>
+    </main>
+  </body>
+</html>

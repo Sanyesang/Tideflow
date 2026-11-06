@@ -1,0 +1,35 @@
+{
+  "name": "ai-quant-tool",
+  "description": "Local-first OKX market research, backtesting and paper-trading workbench",
+  "version": "0.2.0",
+  "private": true,
+  "type": "module",
+  "bin": {
+    "ai-quant-tool": "./dist/cli.js"
+  },
+  "files": [
+    "dist/**/*.js",
+    "!dist/src/**",
+    "!dist/test/**",
+    "scripts/*.mjs",
+    "workbench/**/*",
+    "README.md",
+    "examples/**/*.csv",
+    "run.ps1"
+  ],
+  "engines": {
+    "node": ">=22.15.0"
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "typecheck": "tsc --noEmit -p tsconfig.json && tsc --noEmit -p tsconfig.test.json",
+    "test": "vitest run",
+    "start": "node dist/cli.js",
+    "workbench": "node ./scripts/serve-workbench.mjs"
+  },
+  "devDependencies": {
+    "@types/node": "26.6.5",
+    "typescript": "7.0.2",
+    "vitest": "5.0.5"
+  }
+}

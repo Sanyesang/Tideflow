@@ -1,0 +1,256 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#10171c" />
+    <meta name="description" content="潮序 Tideflow：策略、执行与风险状态一屏掌握。" />
+    <title>潮序 Tideflow · 策略工作台</title>
+    <link rel="icon" type="image/svg+xml" href="/assets/tideflow-mark.svg" />
+    <link rel="stylesheet" href="/styles.css" />
+    <link rel="stylesheet" href="/run-states.css" />
+    <link rel="stylesheet" href="/history.css" />
+    <script type="module" src="/app.js"></script>
+    <script type="module" src="/desktop-runtime.js"></script>
+    <script type="module" src="/pages.js"></script>
+    <script type="module" src="/okx-demo-runtime.js"></script>
+    <link rel="stylesheet" href="/pages.css" />
+  </head>
+  <body>
+    <div class="app-shell" id="app-shell">
+      <aside class="sidebar">
+        <a class="brand" href="#overview" aria-label="潮序 Tideflow 首页">
+          <img class="brand-mark" src="/assets/tideflow-mark.svg" alt="" />
+          <span class="brand-copy"><strong>潮序</strong><small>TIDEFLOW</small></span>
+        </a>
+
+        <div class="nav-caption">WORKSPACE</div>
+        <nav class="nav-list" aria-label="工作台导航">
+          <button class="nav-item active" data-page="overview" type="button"><span class="nav-icon">⌂</span><span>总览</span><kbd>01</kbd></button>
+          <button class="nav-item" data-page="okx-demo" type="button"><span class="nav-icon">◎</span><span>OKX 模拟盘</span><kbd>02</kbd></button>
+          <button class="nav-item" data-page="strategies" type="button"><span class="nav-icon">⌁</span><span>策略实验室</span><kbd>03</kbd></button>
+          <button class="nav-item" data-page="journal" type="button"><span class="nav-icon">▤</span><span>交易日志</span><kbd>04</kbd></button>
+          <button class="nav-item" data-page="risk" type="button"><span class="nav-icon">⛨</span><span>风险中心</span><kbd>05</kbd></button>
+          <button class="nav-item" data-page="announcements" type="button"><span class="nav-icon">◌</span><span>官方公告</span><kbd>06</kbd></button>
+        </nav>
+
+        <div class="sidebar-spacer"></div>
+        <div class="sidebar-note">
+          <div class="note-dot"></div>
+          <div><strong>当前环境</strong><span>本地 · 纸面模拟</span></div>
+          <span class="env-arrow">↗</span>
+        </div>
+        <button class="user-card" id="logout-button" type="button" aria-label="退出登录">
+          <div class="avatar">克</div>
+          <div class="user-copy"><strong>受邀用户</strong><span>本机工作台访问</span></div>
+          <span class="more-dots">···</span>
+        </button>
+      </aside>
+
+      <main class="main-content">
+        <header class="topbar">
+          <div class="breadcrumb"><span>工作台</span><span class="crumb-slash">/</span><strong id="page-breadcrumb">总览</strong></div>
+          <div class="topbar-actions">
+            <a class="text-button" href="/mobile.html">手机端预览 ↗</a>
+            <span class="demo-pill"><i></i> DEMO · 模拟数据</span>
+            <button class="icon-button" id="announcements-shortcut" type="button" aria-label="查看公告" title="官方公告">◌<span class="notification-dot"></span></button>
+            <div class="top-avatar">克</div>
+          </div>
+        </header>
+
+        <div class="content-wrap">
+          <section class="page-heading">
+            <div>
+              <div class="eyebrow"><span class="eyebrow-line"></span> MARKET RHYTHM / 01</div>
+              <h1>把波动，变成可检验的节奏<span class="title-period">.</span></h1>
+              <p>策略、执行与风险状态，一屏掌握。当前展示为本地交互原型，不连接交易账户。</p>
+            </div>
+            <div class="heading-tools">
+              <div class="clock-card"><span class="clock-label">LOCAL TIME</span><strong id="local-clock">--:--:--</strong></div>
+              <button class="primary-button" id="run-simulation" type="button"><span class="button-icon">▶</span><span>启动纸面模拟</span></button>
+            </div>
+          </section>
+
+          <section class="status-strip" aria-label="模拟状态">
+            <div class="status-main"><span class="status-pulse"></span><div><strong id="run-state">模拟环境就绪</strong><span id="run-state-detail">无真实账户连接 · 无真实订单</span></div></div>
+            <div class="status-divider"></div>
+            <div class="status-info"><span class="status-key">MARKET FEED</span><span class="status-value"><i class="status-indicator amber"></i>离线合成样本</span></div>
+            <div class="status-info"><span class="status-key">RISK PROFILE</span><span class="status-value"><i class="status-indicator green"></i>本地回放参数</span></div>
+            <div class="status-info"><span class="status-key">LAST CHECK</span><span class="status-value" id="last-check">刚刚</span></div>
+            <button class="quiet-button" id="stop-simulation" type="button" disabled>中止本轮 <span>×</span></button>
+          </section>
+
+          <section class="metric-grid" aria-label="模拟表现摘要">
+            <article class="metric-card metric-lead">
+              <div class="metric-heading"><span>累计模拟收益</span><span class="metric-icon">↗</span></div>
+              <div class="metric-value positive" id="metric-pnl">+$0.00 <small>USDT</small></div>
+              <div class="metric-foot"><span class="positive" id="metric-pnl-pct">+0.00%</span><span>当前本地账本</span><span class="tiny-spark"><svg viewBox="0 0 94 26" aria-hidden="true"><path id="metric-sparkline" d="M1 13 L93 13" /></svg></span></div>
+            </article>
+            <article class="metric-card">
+              <div class="metric-heading"><span>胜率</span><span class="metric-icon subtle">◎</span></div>
+              <div class="metric-value" id="metric-winrate">0.0<small>%</small></div>
+              <div class="metric-foot"><span class="metric-context" id="winrate-count">0 / 0 笔</span><span>仅统计已平仓模拟单</span></div>
+            </article>
+            <article class="metric-card">
+              <div class="metric-heading"><span>盈亏比</span><span class="metric-icon subtle">⤢</span></div>
+              <div class="metric-value" id="metric-pf">—<small> : 1</small></div>
+              <div class="metric-foot"><span class="metric-context">净盈利 ÷ 净亏损</span><span>费用为模型假设</span></div>
+            </article>
+            <article class="metric-card">
+              <div class="metric-heading"><span>最大回撤</span><span class="metric-icon subtle">⌄</span></div>
+              <div class="metric-value negative" id="metric-drawdown">−0.00<small>%</small></div>
+              <div class="metric-foot"><span class="metric-context">当前本地账本</span><span>合成样本，不代表未来</span></div>
+            </article>
+          </section>
+
+          <section class="dashboard-grid">
+            <div class="column-main">
+              <article class="panel chart-panel">
+                <div class="panel-heading chart-heading">
+                  <div><div class="panel-kicker">PERFORMANCE / PAPER</div><h2>权益曲线 <span class="small-tag">本地回放</span></h2></div>
+                  <span class="range-button active" aria-label="当前展示本地账本的全部回放">本地账本</span>
+                </div>
+                <div class="chart-summary"><strong id="chart-value">1,000.00</strong><span>USDT <b class="positive">+0.00%</b></span></div>
+                <div class="chart-wrap">
+                  <div class="chart-ylabels"><span>1,020</span><span>1,010</span><span>1,000</span><span>990</span></div>
+                  <svg class="performance-chart" viewBox="0 0 760 226" preserveAspectRatio="none" role="img" aria-label="模拟权益曲线示意图">
+                    <defs><linearGradient id="chart-fill" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#c8f36a" stop-opacity=".2"/><stop offset="1" stop-color="#c8f36a" stop-opacity="0"/></linearGradient></defs>
+                    <g class="chart-grid"><path d="M0 20H760 M0 78H760 M0 136H760 M0 194H760"/></g>
+                    <path id="chart-area" class="chart-area" d="" />
+                    <path id="chart-line" class="chart-line" d="" />
+                    <circle id="chart-endpoint" class="chart-endpoint" cx="0" cy="0" r="4" />
+                    <line id="chart-guide" class="chart-guide" x1="0" x2="0" y1="0" y2="226" />
+                  </svg>
+                  <div class="chart-xlabels"><span>起始资金</span><span>回放交易</span><span>当前权益</span></div>
+                  <div class="chart-tooltip" id="chart-tooltip"><span>模拟权益</span><strong>1,000.00 USDT</strong></div>
+                </div>
+                <div class="chart-legend"><span><i class="legend-line"></i>模拟权益</span><span><i class="legend-dash"></i>起始权益 1,000 USDT</span><em>本地合成行情，不连接市场</em></div>
+              </article>
+
+              <article class="panel history-panel" aria-labelledby="history-title">
+                <div class="panel-heading">
+                  <div><div class="panel-kicker">HISTORICAL BACKTEST / LOCAL FILE</div><h2 id="history-title">本地历史回测 <span class="small-tag">CSV · 不上传</span></h2></div>
+                  <span class="history-lock">⌑ 本机解析</span>
+                </div>
+                <p class="history-intro">导入行情源下载的 OHLCV CSV，使用已完成 K 线回测当前策略。请自行确认文件标的与上方选择一致；程序只校验周期、格式与时间顺序，不会自动识别币种、补缺口或重排数据。文件仅在浏览器本机内存中处理，不会上传或联网。</p>
+                <input id="history-file" type="file" accept=".csv,text/csv" hidden />
+                <div class="history-actions">
+                  <button class="quiet-button history-select" id="select-history-file" type="button">选择本地 CSV <span>＋</span></button>
+                  <button class="primary-button history-run" id="run-history-backtest" type="button" disabled><span class="button-icon">↗</span><span>运行历史回测</span></button>
+                  <a class="history-sample-link" href="/assets/sample-ohlcv.csv" download>下载小样本演示 CSV</a>
+                  <label class="history-short-toggle"><input id="history-allow-short" type="checkbox" /><span>允许做空</span></label>
+                </div>
+                <div class="history-file-status" id="history-file-status" role="status" aria-live="polite">尚未选择文件。需要列：timestamp, open, high, low, close, volume；K 线须等间隔、按时间升序。</div>
+                <p class="history-error" id="history-error" role="alert" hidden></p>
+                <section class="history-results" id="history-results" aria-label="历史回测结果" hidden>
+                  <div class="history-result-heading"><div><strong id="history-result-name">回测完成</strong><span id="history-result-detail">固定手续费与滑点假设</span></div><span class="history-result-badge" id="history-result-badge">样本内历史回放</span></div>
+                  <div class="history-metrics">
+                    <div><span>净盈亏</span><strong id="history-pnl">—</strong></div>
+                    <div><span>胜率</span><strong id="history-winrate">—</strong></div>
+                    <div><span>盈亏因子</span><strong id="history-pf">—</strong></div>
+                    <div><span>最大回撤</span><strong id="history-drawdown">—</strong></div>
+                  </div>
+                  <div class="history-equity-wrap"><div><span>历史样本权益</span><strong id="history-ending-equity">—</strong></div><svg viewBox="0 0 720 120" preserveAspectRatio="none" role="img" aria-label="历史回测权益曲线"><path id="history-equity-area" d="" /><path id="history-equity-line" d="" /></svg></div>
+                  <div class="table-scroll history-trades-scroll"><table class="trade-table"><thead><tr><th>平仓时间</th><th>方向</th><th>入场 → 出场</th><th>净模拟盈亏</th><th>退出原因</th></tr></thead><tbody id="history-trade-rows"></tbody></table></div>
+                  <p class="history-assumptions" id="history-assumptions"></p>
+                </section>
+              </article>
+
+              <div class="lower-grid">
+                <article class="panel execution-panel">
+                  <div class="panel-heading">
+                    <div><div class="panel-kicker">EXECUTION FLOW</div><h2>执行轨迹</h2></div>
+                    <span class="live-label"><i></i><span id="execution-label">待命</span></span>
+                  </div>
+                  <div class="execution-stages" id="execution-stages">
+                    <div class="stage completed" data-stage="0"><span class="stage-mark">✓</span><div><strong>合成样本生成</strong><small>离线构造确定性价格序列</small></div><time>就绪</time></div>
+                    <div class="stage" data-stage="1"><span class="stage-mark">2</span><div><strong>策略信号判断</strong><small>等待模拟行情触发</small></div><time>待命</time></div>
+                    <div class="stage" data-stage="2"><span class="stage-mark">3</span><div><strong>风控规则评估</strong><small>仓位、频率、风险预算</small></div><time>待命</time></div>
+                    <div class="stage" data-stage="3"><span class="stage-mark">4</span><div><strong>纸面委托与记录</strong><small>仅写入本地演示状态</small></div><time>待命</time></div>
+                  </div>
+                  <div class="execution-foot"><span>执行环境 <strong>LOCAL PAPER</strong></span><button class="text-button" data-open-page="journal" type="button">查看完整日志 <b>↗</b></button></div>
+                </article>
+
+                <article class="panel strategy-panel">
+                  <div class="panel-heading">
+                    <div><div class="panel-kicker">STRATEGY CONTROL</div><h2>策略配置</h2></div>
+                    <button class="icon-button panel-more" data-open-page="strategies" type="button" aria-label="打开策略实验室">···</button>
+                  </div>
+                  <label class="field-label" for="strategy-select">策略类型 <span>可切换演示</span></label>
+                  <select id="strategy-select" class="select-control">
+                    <option value="momentum">脉冲动量 · 本地回放</option>
+                    <option value="breakout">区间突破 · 本地回放</option>
+                    <option value="mean-reversion">均值回归 · 本地回放</option>
+                  </select>
+                  <div class="strategy-description" id="strategy-description">按短窗方向变化进场，反向信号、止盈或止损时退出。</div>
+                  <div class="configuration-row"><label for="asset-select">交易标的</label><select id="asset-select" class="select-control compact"><option>BTC-USDT</option><option>ETH-USDT</option><option>SOL-USDT</option></select></div>
+                  <div class="configuration-row"><label for="frequency-select">回放频率</label><select id="frequency-select" class="select-control compact"><option value="1s">1 秒</option><option value="5s" selected>5 秒</option><option value="15s">15 秒</option><option value="1m">1 分钟</option></select></div>
+                  <div class="config-foot"><span class="lock-icon">◈</span>本地合成样本回放；秒级选项不代表实盘高频能力。</div>
+                </article>
+              </div>
+
+              <article class="panel trades-panel">
+                <div class="panel-heading">
+                  <div><div class="panel-kicker">RECENT PAPER TRADES</div><h2>最近模拟交易</h2></div>
+                  <button class="text-button" data-open-page="journal" type="button">查看全部 <b>↗</b></button>
+                </div>
+                <div class="table-scroll"><table class="trade-table"><thead><tr><th>标的 / 策略</th><th>方向</th><th>进场 → 出场</th><th>净模拟盈亏</th><th>状态</th></tr></thead><tbody id="trade-rows"></tbody></table></div>
+                <div class="table-note"><span class="note-dot-small"></span>合成样本纸面记录，不代表真实成交或策略表现</div>
+              </article>
+            </div>
+
+            <aside class="column-side">
+              <article class="panel market-panel">
+                <div class="panel-heading">
+                  <div><div class="panel-kicker">MARKET WATCH</div><h2>样本观察 <span class="small-tag">离线合成</span></h2></div>
+                  <span class="market-cloud">⌁</span>
+                </div>
+                <div class="market-primary"><div><span class="asset-symbol">BTC</span><span class="asset-name">Bitcoin</span></div><div class="market-price"><strong id="market-price">67,482.30</strong><span class="positive" id="market-change">+1.24%</span></div></div>
+                <div class="market-sparkline"><svg viewBox="0 0 340 74" preserveAspectRatio="none" aria-hidden="true"><defs><linearGradient id="spark-fill" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#bfe867" stop-opacity=".18"/><stop offset="1" stop-color="#bfe867" stop-opacity="0"/></linearGradient></defs><path class="spark-area" d="M0 60 L20 50 L42 53 L62 36 L85 42 L108 29 L127 34 L150 22 L174 39 L194 27 L219 30 L240 15 L259 25 L282 17 L302 21 L322 7 L340 11 L340 74 L0 74 Z"/><path class="spark-line" d="M0 60 L20 50 L42 53 L62 36 L85 42 L108 29 L127 34 L150 22 L174 39 L194 27 L219 30 L240 15 L259 25 L282 17 L302 21 L322 7 L340 11"/></svg></div>
+                <div class="market-meta"><span>样本高位 <strong>67,000.00</strong></span><span>样本低位 <strong>67,000.00</strong></span></div>
+                <div class="market-list" id="market-list">
+                  <button class="market-row active" type="button" data-asset="BTC-USDT"><span class="coin-badge btc">₿</span><span class="coin-copy"><strong>BTC / USDT</strong><small>Bitcoin</small></span><span class="coin-price">67,482.30</span><span class="coin-change positive">+1.24%</span></button>
+                  <button class="market-row" type="button" data-asset="ETH-USDT"><span class="coin-badge eth">◆</span><span class="coin-copy"><strong>ETH / USDT</strong><small>Ethereum</small></span><span class="coin-price">3,518.62</span><span class="coin-change positive">+0.86%</span></button>
+                  <button class="market-row" type="button" data-asset="SOL-USDT"><span class="coin-badge sol">◎</span><span class="coin-copy"><strong>SOL / USDT</strong><small>Solana</small></span><span class="coin-price">181.43</span><span class="coin-change negative">−0.32%</span></button>
+                </div>
+                <div class="market-foot"><span><i class="status-indicator amber"></i>本地确定性样本</span><span>实时行情未连接</span></div>
+              </article>
+
+              <article class="panel risk-panel">
+                <div class="panel-heading">
+                  <div><div class="panel-kicker">RISK PROFILE</div><h2>风险偏好</h2></div>
+                  <span class="risk-badge" id="risk-label">平衡</span>
+                </div>
+                <div class="risk-score-row"><span>风险承受指数</span><strong><span id="risk-value">42</span><small> / 100</small></strong></div>
+                <input id="risk-slider" class="risk-slider" type="range" min="0" max="100" value="42" aria-label="风险承受指数" />
+                <div class="slider-scale"><span>稳健</span><span>平衡</span><span>进取</span></div>
+              <div class="risk-readouts"><div><span>单笔名义上限</span><strong id="risk-order-cap">$36.80</strong></div><div><span>单轮亏损停止线</span><strong id="risk-daily-cap">$25.50</strong></div><div><span>入场门槛</span><strong id="risk-threshold">13 bps</strong></div></div>
+                <div class="risk-foot"><span class="shield-icon">⛨</span><span>仅为演示参数映射，非个人投资建议。</span></div>
+              </article>
+
+              <article class="panel notice-panel">
+                <div class="panel-heading">
+                  <div><div class="panel-kicker">OFFICIAL CHANNEL</div><h2>官方公告</h2></div>
+                  <span class="reserved-pill">预留窗口</span>
+                </div>
+                <div class="notice-empty"><div class="notice-graphic"><span>✳</span><i></i></div><strong>公告发布位已预留</strong><p>产品更新、维护通知与风险提示将显示在这里。</p><button class="text-button" data-open-page="announcements" type="button">进入公告中心 <b>↗</b></button></div>
+                <div class="notice-footer"><span>推送状态</span><span><i class="status-indicator gray"></i>尚未接入发布服务</span></div>
+              </article>
+            </aside>
+          </section>
+
+          <footer class="workspace-footer"><span>潮序 TIDEFLOW <i>·</i> LOCAL REPLAY 0.2</span><span>离线合成样本回放 · 不连接行情、账户或交易所</span></footer>
+        </div>
+      </main>
+    </div>
+
+    <div class="modal-backdrop" id="modal-backdrop" hidden>
+      <section class="modal-panel" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+        <div class="modal-head"><div><div class="panel-kicker" id="modal-kicker">WORKSPACE</div><h2 id="modal-title">面板</h2></div><button class="icon-button modal-close" id="modal-close" type="button" aria-label="关闭">×</button></div>
+        <div class="modal-body" id="modal-body"></div>
+      </section>
+    </div>
+
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  </body>
+</html>

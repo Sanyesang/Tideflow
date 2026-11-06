@@ -1,0 +1,34 @@
+.history-panel{margin-top:14px;padding:16px 17px 14px;border-color:rgba(127,212,197,.16);background:linear-gradient(145deg,rgba(127,212,197,.035),transparent 46%),var(--panel)}
+.history-lock{display:inline-flex;align-items:center;gap:6px;color:var(--teal);font:9px var(--mono);letter-spacing:.08em}
+.history-intro{max-width:780px;margin:5px 0 13px;color:var(--muted);font-size:11px;line-height:1.65}
+.history-actions{display:flex;align-items:center;gap:9px;flex-wrap:wrap}
+.history-select{height:36px;padding:0 12px;border:1px solid var(--line);border-radius:8px;background:rgba(255,255,255,.025);color:var(--text);font-size:10px}
+.history-select:hover{border-color:rgba(127,212,197,.4);background:rgba(127,212,197,.045)}
+.history-run{height:36px;min-height:36px;padding:0 13px;font-size:10px}
+.history-run:disabled{cursor:not-allowed;opacity:.42;filter:saturate(.45)}
+.history-sample-link{display:inline-flex;align-items:center;min-height:34px;padding:0 8px;color:var(--muted);font-size:9px;text-decoration:none}
+.history-sample-link:hover{color:var(--teal);text-decoration:underline}
+.history-short-toggle{display:inline-flex;align-items:center;gap:7px;margin-left:auto;color:var(--muted);font-size:10px;cursor:pointer}
+.history-short-toggle input{width:14px;height:14px;margin:0;accent-color:var(--lime)}
+.history-file-status{margin-top:10px;padding:9px 11px;border:1px solid var(--line-soft);border-radius:8px;background:rgba(7,12,15,.2);color:var(--dim);font-size:9px;line-height:1.6;overflow-wrap:anywhere}
+.history-file-status.loaded{border-color:rgba(127,212,197,.25);color:#b7d4ce}
+.history-file-status.invalid,.history-error{border-color:rgba(233,140,126,.28);color:var(--red)}
+.history-error{margin:8px 0 0;font-size:10px;line-height:1.5}
+.history-results{margin-top:14px;padding-top:13px;border-top:1px solid var(--line-soft)}
+.history-result-heading{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:11px}
+.history-result-heading>div{display:grid;gap:3px}.history-result-heading strong{font-size:12px}.history-result-heading span{color:var(--muted);font-size:9px}
+.history-result-badge{padding:4px 7px;border:1px solid rgba(233,184,114,.18);border-radius:20px;color:var(--amber)!important;font:8px var(--mono)!important;white-space:nowrap}
+.history-result-badge.stale{border-color:rgba(233,140,126,.3);color:var(--red)!important}
+.history-metrics{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}
+.history-metrics>div{display:grid;gap:6px;min-width:0;padding:9px 10px;border:1px solid var(--line-soft);border-radius:8px;background:rgba(255,255,255,.018)}
+.history-metrics span,.history-equity-wrap>div span{color:var(--muted);font-size:9px}
+.history-metrics strong{font:15px var(--mono);color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.history-equity-wrap{margin-top:10px;padding:9px 10px 5px;border:1px solid var(--line-soft);border-radius:8px;background:rgba(7,12,15,.18)}
+.history-equity-wrap>div{display:flex;align-items:center;justify-content:space-between;gap:8px}.history-equity-wrap>div strong{font:10px var(--mono);color:var(--text)}
+.history-equity-wrap svg{display:block;width:100%;height:74px;margin-top:5px;overflow:visible}
+#history-equity-line{fill:none;stroke:var(--teal);stroke-width:2;vector-effect:non-scaling-stroke}
+#history-equity-area{fill:rgba(127,212,197,.1);stroke:none}
+.history-trades-scroll{margin-top:10px}.history-trades-scroll .trade-table td,.history-trades-scroll .trade-table th{font-size:9px}
+.history-assumptions{margin:9px 0 0;color:var(--dim);font-size:8px;line-height:1.6}
+@media(max-width:760px){.history-panel{padding:13px 11px}.history-actions{align-items:stretch}.history-select,.history-run{flex:1;justify-content:center}.history-sample-link{justify-content:center}.history-short-toggle{margin:0 0 0 4px}.history-metrics{grid-template-columns:repeat(2,minmax(0,1fr))}.history-trades-scroll{margin-right:-8px}}
+@media(max-width:420px){.history-result-heading{align-items:flex-start;flex-direction:column}.history-short-toggle{width:100%}}
