@@ -33,3 +33,5 @@ npm start
 ## 保存完整目录
 
 Releases 中的 `Tideflow-full-2026-11-07.tar.gz` 是原项目目录的完整归档，包含依赖和旧构建输出，体积较大。下载后可在 PowerShell 中运行 `tar -xzf Tideflow-full-2026-11-07.tar.gz` 解压。GitHub 仓库的 `main` 分支适合浏览和获取源码。
+
+`Tideflow-presentation-materials-safe-20261021.tar.gz` 包含演示文稿及其制作资料。原制作目录使用的共享 `node_modules` 连接未打入该归档，恢复制作环境时需要另行准备依赖。
